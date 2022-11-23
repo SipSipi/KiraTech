@@ -8,7 +8,10 @@ from .serializer import IventorySerializer
 
 @api_view(['GET'])
 def index(request):
-    str_name = request.query_params.get("name")
-    ls = Inventory.objects.get(name = str_name)
-    strReturn =  str(ls.__dict__) 
-    return HttpResponse(strReturn)
+    try:
+        str_name = request.query_params.get("name")
+        ls = Inventory.objects.get(name = str_name)
+        strReturn =  str(ls.__dict__) 
+        return HttpResponse(strReturn)
+    except Exception as e:
+        return HttpResponse(str(e))
